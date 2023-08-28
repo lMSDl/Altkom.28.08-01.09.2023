@@ -1,31 +1,29 @@
-﻿using Newtonsoft.Json;
-
-//namespace ConsoleApp
-//{
-//    internal class Program
-//    {
-//        static void Main(string[] args)
-//        {
+﻿
+using Microsoft.Extensions.Configuration;
 
 
-System.Console.WriteLine("Hello, World!");
-JsonConvert.SerializeObject(new object());
+//Microsoft.Extensions.Configuration
+IConfiguration config = new ConfigurationBuilder()
+    //Microsoft.Extensions.Configuration.Json
+    .AddJsonFile("Config/config.json")
+    //Microsoft.Extensions.Configuration.Xml
+    .AddXmlFile("Config/config.xml", optional: true)
+    //Microsoft.Extensions.Configuration.Ini
+    .AddIniFile("Config/config.ini")
+    //NetEscapades.Configuration.Yaml
+    .AddYamlFile("Config/config.yaml", optional: false, reloadOnChange: true)
 
-// ? - (jawnie) nullowalny string
-string? a = null;
-string b = ToUpper(a!);
+    //ostatnia załadowana konfiguracja zastępuje wartości kluczy załądowanych wcześniej
+    .Build();
 
-Console.WriteLine(b);
 
-string ToUpper(string a /*!! - null-checking feature - dodaje podczas kompilacji (niejawnie) kod wyjątku jako poniżej*/)
+for (int i = 0; i < int.Parse(config["Count"]); i++)
 {
-    if (a == null)
-        throw new ArgumentNullException(nameof(a));
 
-    return a.ToUpper();
+    Console.WriteLine($"Hello {config["HelloJson"]}");
+    Console.WriteLine($"Hello {config["HelloXml"]}");
+    Console.WriteLine($"Hello {config["HelloIni"]}");
+    Console.WriteLine($"Hello {config["HelloYaml"]}");
+
+    Console.ReadLine();
 }
-
-
-//        }
-//    }
-//}
