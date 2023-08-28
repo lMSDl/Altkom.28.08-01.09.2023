@@ -27,3 +27,11 @@ for (int i = 0; i < int.Parse(config["Count"]); i++)
 
     Console.ReadLine();
 }
+
+
+Console.WriteLine("__________");
+
+var greetingsSection = config.GetSection("Greetings");
+var tragetsSection = greetingsSection.GetSection("Targets");
+
+Console.WriteLine($"{greetingsSection["Value"]} from {tragetsSection["From"]} to {config["Greetings:Targets:To"]}");

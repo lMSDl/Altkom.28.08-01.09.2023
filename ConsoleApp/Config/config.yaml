@@ -1,2 +1,7 @@
 HelloYaml: yaml
-Count: 10
+Count: 1
+Greetings:
+  Value: Bye
+  Targets:
+    From: YAML
+    To: Adam
