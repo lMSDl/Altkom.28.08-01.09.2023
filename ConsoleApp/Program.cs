@@ -14,6 +14,8 @@ IConfiguration config = new ConfigurationBuilder()
     //NetEscapades.Configuration.Yaml
     .AddYamlFile("Config/config.yaml", optional: false, reloadOnChange: true)
 
+    //Microsoft.Extensions.Configuration.Binder
+    .AddEnvironmentVariables()
     //ostatnia załadowana konfiguracja zastępuje wartości kluczy załądowanych wcześniej
     .Build();
 
@@ -48,3 +50,7 @@ Console.WriteLine($"{greetings.Value} from {greetings.Targets.From} to {greeting
 greetings = new Greetings();
 greetingsSection.Bind(greetings);
 Console.WriteLine($"{greetings.Value} from {greetings.Targets.From} to {greetings.Targets.To}");
+
+
+Console.WriteLine(config["Temp"]);
+Console.WriteLine(config["bajka"]);
