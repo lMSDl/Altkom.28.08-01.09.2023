@@ -1,4 +1,5 @@
 ﻿
+using ConsoleApp.Config.Models;
 using Microsoft.Extensions.Configuration;
 
 
@@ -17,8 +18,10 @@ IConfiguration config = new ConfigurationBuilder()
     .Build();
 
 
-for (int i = 0; i < int.Parse(config["Count"]); i++)
-{
+//for (int i = 0; i < int.Parse(config["Count"]); i++)
+//Binder pozwala na pobieranie wartości z konfiguracji innych niż string
+  for (int i = 0; i < config.GetValue<int>("Count"); i++)
+    {
 
     Console.WriteLine($"Hello {config["HelloJson"]}");
     Console.WriteLine($"Hello {config["HelloXml"]}");
@@ -35,3 +38,13 @@ var greetingsSection = config.GetSection("Greetings");
 var tragetsSection = greetingsSection.GetSection("Targets");
 
 Console.WriteLine($"{greetingsSection["Value"]} from {tragetsSection["From"]} to {config["Greetings:Targets:To"]}");
+
+//Microsoft.Extensions.Configuration.Binder
+//wytwrzamy obiekt na podstawie konfiguracji
+var greetings = greetingsSection.Get<Greetings>();
+Console.WriteLine($"{greetings.Value} from {greetings.Targets.From} to {greetings.Targets.To}");
+
+//uzupełniamy obiekt danymi z konfiguracji
+greetings = new Greetings();
+greetingsSection.Bind(greetings);
+Console.WriteLine($"{greetings.Value} from {greetings.Targets.From} to {greetings.Targets.To}");
