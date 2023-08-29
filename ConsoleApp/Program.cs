@@ -1,8 +1,10 @@
 ﻿
+using ConsoleApp;
 using ConsoleApp.Config.Models;
 using ConsoleApp.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 
 //Microsoft.Extensions.Configuration
@@ -34,7 +36,8 @@ serviceCollection.AddTransient<IFontService, MuzzleFontService>();
 serviceCollection.AddTransient<IFontService, ShadowSmallFontService>();
 
 //ręczna rejestracja na interfejs IOutputService
-serviceCollection.AddTransient<IOutputService>(x => new ConsoleOutputService(new StandardFontService()));
+serviceCollection.AddTransient<IOutputService>(x => 
+new ConsoleOutputService(new StandardFontService(x.GetService<ILogger<StandardFontService>>()), x.GetService<ILogger<ConsoleOutputService>>()));
 
 //transient - zawsze nowa instancja
 serviceCollection.AddTransient<IOutputService, ConsoleRandomFontOutputService>();
@@ -44,6 +47,19 @@ serviceCollection.AddSingleton<IOutputService, ConsoleRandomFontOutputService>()
 serviceCollection.AddScoped<IOutputService, ConsoleRandomFontOutputService>();
 
 serviceCollection.AddSingleton<IConfiguration>(x => config);
+
+
+serviceCollection.AddLogging(options => 
+    options
+        .AddConfiguration(config.GetSection("Logging"))
+        .ClearProviders()
+        .AddConsole(x => x.IncludeScopes = true)
+        .AddDebug()
+        .AddEventLog()
+        /*.SetMinimumLevel(LogLevel.Debug)*/);
+
+
+serviceCollection.AddSingleton<LoggerDemo>();
 
 //zbudowanie dostawcy usług
 var serviceProvider = serviceCollection.BuildServiceProvider();
@@ -65,7 +81,7 @@ Console.WriteLine($"Hello {configService["HelloYaml"]}");
 //wytworzenie scope
 var scope = serviceProvider.CreateScope();
 
-while (true)
+while (false)
 {
     if(DateTime.Now.Second % 2 == 0)
     {
@@ -82,6 +98,7 @@ while (true)
     Console.ReadLine();
 }
 
+serviceProvider.GetService<LoggerDemo>().Work();
 
 
 

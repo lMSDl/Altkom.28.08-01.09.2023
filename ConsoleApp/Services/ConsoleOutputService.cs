@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,14 @@ namespace ConsoleApp.Services
     {
 
         private IFontService _fontService;
+        protected ILogger _logger;
 
-        public ConsoleOutputService(IFontService fontService)
+        public ConsoleOutputService(IFontService fontService, ILogger<ConsoleOutputService> logger)
         {
             _fontService = fontService;
+            _logger = logger;
+
+            _logger.LogDebug("Konstruktor ConsoleOutputService");
         }
 
         public void WriteText(string text)
