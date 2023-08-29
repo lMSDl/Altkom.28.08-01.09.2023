@@ -1,21 +1,22 @@
+using Microsoft.AspNetCore.Builder;
+using WebApp.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
 //builder.Services.AddTransient.....
+builder.Services.AddTransient<Use1Middleware>();
+builder.Services.AddTransient<MapRunMiddleware>();
+
 
 var app = builder.Build();
 
 //app.Services.GetService....
 
 
-app.Use(async (context, next) =>
-{
-    await Console.Out.WriteLineAsync("Begin USE1");
-    await next(context);
-    await Console.Out.WriteLineAsync("End USE1");
 
-});
-
+//app.UseMiddleware<Use1Middleware>();
+app.Use1Middleware();
 
 app.Map("/Tom", mapApp =>
 {
@@ -27,12 +28,8 @@ app.Map("/Tom", mapApp =>
 
     });
 
-    mapApp.Run(async context =>
-    {
-        await Console.Out.WriteLineAsync("Begin MapRUN");
-        await context.Response.WriteAsync("Hello Tom");
-        await Console.Out.WriteLineAsync("End MapRUN");
-    });
+
+    mapApp.UseMiddleware<MapRunMiddleware>();
 });
 
 app.MapWhen(context => context.Request.Query.TryGetValue("name", out _), mapApp =>
@@ -46,13 +43,7 @@ app.MapWhen(context => context.Request.Query.TryGetValue("name", out _), mapApp 
 });
 
 
-app.Use(async (context, next) =>
-{
-    await Console.Out.WriteLineAsync("Begin USE2");
-    await next(context);
-    await Console.Out.WriteLineAsync("End USE2");
-
-});
+app.UseMiddleware<Use2Middleware>();
 
 app.Run(async context =>
 {
