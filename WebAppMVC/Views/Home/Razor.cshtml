@@ -1,4 +1,7 @@
-﻿
+﻿@model string
+
+
+
 Simple text
 <br>
 <p>Some text</p>
@@ -6,6 +9,15 @@ Simple text
 @this.GetType().Name
 <br>
 @@this.GetType().Name
+<br>
+@Model
+@ViewData["name"]
+
+@ViewData[Model]
+
+@ViewBag.Name
+@ViewBag.Kawa
+@ViewBag.Model
 
 <br>
 abc@mail.com

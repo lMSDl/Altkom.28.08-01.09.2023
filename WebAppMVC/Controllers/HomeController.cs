@@ -18,9 +18,16 @@ namespace WebAppMVC.Controllers
             return View();
         }
 
-        public IActionResult Razor()
+        public IActionResult Razor(string name, string @string)
         {
-            return View();
+            ViewData["name"] = name;
+			ViewData[name] = @string;
+
+            ViewBag.Name = name;
+            ViewBag.Kawa = @string;
+
+
+			return View((object)name);
         }
 
         public IActionResult Privacy()
