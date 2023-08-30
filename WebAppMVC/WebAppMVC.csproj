@@ -10,4 +10,9 @@
     <Folder Include="public\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Services.Bogus\Services.Bogus.csproj" />
+    <ProjectReference Include="..\Services.Interfaces\Services.Interfaces.csproj" />
+  </ItemGroup>
+
 </Project>
