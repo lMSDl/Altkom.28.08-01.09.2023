@@ -46,7 +46,7 @@ app.MapGet("/Users", (ICrudService<User> service) =>  service.ReadAsync());
 app.MapGet("/Users/{id}", (int id, ICrudService<User> service) => service.ReadAsync(id));
 app.MapPost("/Users", (User user, ICrudService<User> service) => service.CreateAsync(user));
 app.MapPut("/Users/{id}", [Authorize(Roles = nameof(Roles.Update) + "," + nameof(Roles.Read))] (int id, User user, ICrudService<User> service) => service.UpdateAsync(id, user));
-app.MapDelete("/Users/{id}", [Authorize(Roles = nameof(Roles.Delete))][Authorize(Roles = nameof(Roles.Delete))] (int id, ICrudService<User> service) => service.DeleteAsync(id));
+app.MapDelete("/Users/{id}", [Authorize(Roles = nameof(Roles.Delete))] (int id, ICrudService<User> service) => service.DeleteAsync(id));
 
 app.MapPost("/Login", async (HttpContext context, IUsersService service) => {
 
