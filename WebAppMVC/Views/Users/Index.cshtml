@@ -1,3 +1,32 @@
 ﻿
 @model IEnumerable<User>
 
+@* @foreach(var user in Model)
+{
+	<p>@user.UserName</p>
+} *@
+
+
+<div>
+	<table class="table">
+		<thead>
+			<tr>
+
+				<th> @Html.DisplayName(nameof(Entity.Id) + "<script>asd</script>") </th>
+				<th> @Html.DisplayNameFor(model => model.UserName) </th>
+				@* <th> <label>@nameof(Models.User.Password)</label> </th> *@
+				<th> @Html.Label(nameof(Models.User.Password)) </th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach(var user in Model)
+			{
+				<tr>
+					<td>@Html.DisplayFor(_ => user.Id)</td>
+					<td>@Html.DisplayFor(_ => user.UserName)</td>
+					<td>@user.Password</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
