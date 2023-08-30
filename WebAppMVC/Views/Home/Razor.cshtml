@@ -1,0 +1,45 @@
+﻿
+Simple text
+<br>
+<p>Some text</p>
+
+@this.GetType().Name
+<br>
+@@this.GetType().Name
+
+<br>
+abc@mail.com
+
+<p>2 + 5 = @(2+5)</p>
+<p>Dzisiejsza data to @DateTime.Now.ToShortDateString()</p>
+<p>Od 2000 roku minęło @(DateTime.Now.Year - 2000) lat</p>
+
+@{
+	var a = 300;
+	var b = 4.5;
+}
+
+<p>@a + @b = @(a + b)</p>
+
+@{
+	void Show(int times)
+	{
+		for (int i = 0; i < times; i++)
+		{
+			//wewnątrz bloku c# możemy wstawiać też html
+			<p>@i</p>
+		}
+	}
+}
+
+@{Show(4);}
+
+
+@if(DateTime.Now.Second % 2 == 0)
+{
+	<text>Even</text>
+}
+else
+{
+	@:Odd
+}

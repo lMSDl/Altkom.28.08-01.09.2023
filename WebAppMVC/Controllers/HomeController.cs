@@ -18,6 +18,11 @@ namespace WebAppMVC.Controllers
             return View();
         }
 
+        public IActionResult Razor()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
