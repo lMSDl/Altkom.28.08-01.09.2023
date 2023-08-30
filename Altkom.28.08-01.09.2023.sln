@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Bogus", "Services.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudWebApp", "CrudWebApp\CrudWebApp.csproj", "{FCAC4B8B-9230-41E1-90EC-3B04131FCD2C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppMVC", "WebAppMVC\WebAppMVC.csproj", "{99DA20D2-BF6C-4811-980B-1D0C8E465D8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{FCAC4B8B-9230-41E1-90EC-3B04131FCD2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCAC4B8B-9230-41E1-90EC-3B04131FCD2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCAC4B8B-9230-41E1-90EC-3B04131FCD2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99DA20D2-BF6C-4811-980B-1D0C8E465D8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99DA20D2-BF6C-4811-980B-1D0C8E465D8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99DA20D2-BF6C-4811-980B-1D0C8E465D8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99DA20D2-BF6C-4811-980B-1D0C8E465D8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
