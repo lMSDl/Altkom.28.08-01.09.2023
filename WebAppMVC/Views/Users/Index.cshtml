@@ -1,10 +1,14 @@
 ﻿
+
 @model IEnumerable<User>
 
 @* @foreach(var user in Model)
 {
 	<p>@user.UserName</p>
 } *@
+@inject IStringLocalizer<Program> StringLocalizer
+@inject IHtmlLocalizer<Program> HtmlLocalizer
+@inject IViewLocalizer ViewLocalizer
 
 
 <div>
@@ -12,10 +16,15 @@
 		<thead>
 			<tr>
 
-				<th> @Html.DisplayName(nameof(Entity.Id) + "<script>asd</script>") </th>
-				<th> @Html.DisplayNameFor(model => model.UserName) </th>
+				<th> @Html.DisplayName(StringLocalizer[nameof(Entity.Id)]) </th>
+
+				@* <th> @Html.DisplayNameFor(model => model.UserName) </th> *@ @* Tłumaczenie na podstawie adnotacji *@
+				@* <th> @StringLocalizer["<i>{0}</i>",@Html.DisplayNameFor(model => model.UserName)] </th> *@ @* nie stosuje formatowania *@
+				<th> @HtmlLocalizer["<i>{0}</i>",@Html.DisplayNameFor(model => model.UserName)] </th> @* stosuje formatowanie *@
+
+
 				@* <th> <label>@nameof(Models.User.Password)</label> </th> *@
-				<th> @Html.Label(nameof(Models.User.Password)) </th>
+				<th> @Html.Label(@ViewLocalizer[nameof(Models.User.Password)].Value) </th> @* tłumaczenie związane z widokiem *@
 			</tr>
 		</thead>
 		<tbody>

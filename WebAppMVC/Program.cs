@@ -11,7 +11,17 @@ builder.Services.AddTransient<ICrudService<User>>(x => x.GetService<IUsersServic
 builder.Services.AddTransient<EntityFaker<User>, UserFaker>();
 
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddViewLocalization()
+    .AddDataAnnotationsLocalization(x => x.DataAnnotationLocalizerProvider = (type, factory) => factory.Create(typeof(Program)));
+
+builder.Services.AddLocalization(x => x.ResourcesPath = "Resources");
+builder.Services.Configure<RequestLocalizationOptions>(x =>
+{
+    x.SetDefaultCulture("en");
+    x.AddSupportedCultures("en-us", "pl");
+	x.AddSupportedUICultures("en-us", "pl");
+});
 
 var app = builder.Build();
 
@@ -42,6 +52,7 @@ app.UseFileServer(new FileServerOptions
     EnableDirectoryBrowsing = true,
 });
 
+app.UseRequestLocalization();
 app.UseRouting();
 
 app.UseAuthorization();
