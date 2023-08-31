@@ -1,29 +1,8 @@
-﻿@using WebAppMVC.Controllers;
+﻿@model User
 
-
-@model IEnumerable<User>
-
-@* @foreach(var user in Model)
-{
-	<p>@user.UserName</p>
-} *@
 @inject IStringLocalizer<Program> StringLocalizer
 @inject IHtmlLocalizer<Program> HtmlLocalizer
 @inject IViewLocalizer ViewLocalizer
-
-
-<div>
-	@using(Html.BeginForm(nameof(UsersController.Search), "users")) {
-		@Html.TextBox("phrase")
-		<input type="submit" class="btn" value="Search" />
-	}
-
-
-	<form asp-action="search" asp-antiforgery="false" >
-		<input type="text" name="phrase"/>
-		<input type="submit" class="btn" value="Search"/>
-	</form>
-</div>
 
 
 <div>
@@ -37,21 +16,29 @@
 				@* <th> @StringLocalizer["<i>{0}</i>",@Html.DisplayNameFor(model => model.UserName)] </th> *@ @* nie stosuje formatowania *@
 				<th> @HtmlLocalizer["<i>{0}</i>",@Html.DisplayNameFor(model => model.UserName)] </th> @* stosuje formatowanie *@
 
-
 				@* <th> <label>@nameof(Models.User.Password)</label> </th> *@
 				<th> @Html.Label(@ViewLocalizer[nameof(Models.User.Password)].Value) </th> @* tłumaczenie związane z widokiem *@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach(var user in Model)
-			{
 				<tr>
-					<td>@Html.DisplayFor(_ => user.Id)</td>
-					<td>@Html.DisplayFor(_ => user.UserName)</td>
-					<td>@user.Password</td>
-					<td>@Html.ActionLink("Delete", "delete", new {user.Id})</td>
+					<td>@Html.DisplayFor(model => model.Id)</td>
+					<td>@Html.DisplayFor(model => model.UserName)</td>
+					<td>@Model.Password</td>
 				</tr>
-			}
 		</tbody>
 	</table>
+</div>
+
+<div>
+<p>Czy chcesz usunąć wskazanego użytkownika?</p>
+
+	@using(Html.BeginForm("deleteuser", "users"))
+	{
+		@* <input type="hidden" asp-for="@Model.Id"/> *@
+		@Html.HiddenFor(x => x.Id);
+
+		<input type="submit" value="Tak" class="btn"/>
+		<a asp-action="Index" class="btn">Nie</a>
+	}
 </div>
