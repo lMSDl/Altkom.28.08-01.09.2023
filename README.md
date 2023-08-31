@@ -33,3 +33,8 @@
     ```
     dotnet add reference <ŚCIEŻKA_PROJEKTU>
     ```
+## EF Core
+* PMC
+    ```
+    Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Chinook' Microsoft.EntityFrameworkCore.SqlServer
+    ```
