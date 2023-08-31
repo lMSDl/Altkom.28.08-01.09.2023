@@ -6,9 +6,14 @@ using Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<IUsersService>(x => new UsersService(x.GetService<EntityFaker<User>>()!, x.GetService<IConfiguration>().GetValue<int>("Services:Bogus:Count")));
+//builder.Services.AddSingleton<IUsersService>(x => new UsersService(x.GetService<EntityFaker<User>>()!, x.GetService<IConfiguration>().GetValue<int>("Services:Bogus:Count")));
+//builder.Services.AddTransient<EntityFaker<User>, UserFaker>();
+
+builder.Services.AddScoped<IUsersService, DAL.DbFirst.Services.UsersService>();
 builder.Services.AddTransient<ICrudService<User>>(x => x.GetService<IUsersService>()!);
-builder.Services.AddTransient<EntityFaker<User>, UserFaker>();
+
+
+builder.Services.AddSqlServer<DAL.DbFirst.ASPNETContext>(builder.Configuration.GetConnectionString("ASPNET"));
 
 
 builder.Services.AddControllersWithViews()

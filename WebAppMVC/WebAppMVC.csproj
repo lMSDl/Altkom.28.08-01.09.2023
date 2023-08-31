@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DAL.DbFirst\DAL.DbFirst.csproj" />
     <ProjectReference Include="..\Services.Bogus\Services.Bogus.csproj" />
     <ProjectReference Include="..\Services.Interfaces\Services.Interfaces.csproj" />
   </ItemGroup>
