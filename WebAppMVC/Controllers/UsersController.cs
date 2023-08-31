@@ -4,6 +4,7 @@ using Services.Interfaces;
 
 namespace WebAppMVC.Controllers
 {
+	[AutoValidateAntiforgeryToken]
 	public class UsersController : Controller
 	{
 		private ICrudService<User> _service;
@@ -18,6 +19,7 @@ namespace WebAppMVC.Controllers
 			return View(await _service.ReadAsync());
 		}
 
+		//[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Search(string? phrase)
 		{
 			var items = await _service.ReadAsync();
