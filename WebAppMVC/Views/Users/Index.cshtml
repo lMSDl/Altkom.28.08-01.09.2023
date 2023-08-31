@@ -7,9 +7,7 @@
 {
 	<p>@user.UserName</p>
 } *@
-@inject IStringLocalizer<Program> StringLocalizer
-@inject IHtmlLocalizer<Program> HtmlLocalizer
-@inject IViewLocalizer ViewLocalizer
+
 
 
 <div>
@@ -31,24 +29,14 @@
 		<thead>
 			<tr>
 
-				<th> @Html.DisplayName(StringLocalizer[nameof(Entity.Id)]) </th>
-
-				@* <th> @Html.DisplayNameFor(model => model.UserName) </th> *@ @* Tłumaczenie na podstawie adnotacji *@
-				@* <th> @StringLocalizer["<i>{0}</i>",@Html.DisplayNameFor(model => model.UserName)] </th> *@ @* nie stosuje formatowania *@
-				<th> @HtmlLocalizer["<i>{0}</i>",@Html.DisplayNameFor(model => model.UserName)] </th> @* stosuje formatowanie *@
-
-
-				@* <th> <label>@nameof(Models.User.Password)</label> </th> *@
-				<th> @Html.Label(@ViewLocalizer[nameof(Models.User.Password)].Value) </th> @* tłumaczenie związane z widokiem *@
+				@await Html.PartialAsync("_UserHeader", new User())
 			</tr>
 		</thead>
 		<tbody>
 			@foreach(var user in Model)
 			{
 				<tr>
-					<td>@Html.DisplayFor(_ => user.Id)</td>
-					<td>@Html.DisplayFor(_ => user.UserName)</td>
-					<td>@user.Password</td>
+					@await Html.PartialAsync("_UserBody", user)
 					<td>@Html.ActionLink("Delete", "delete", new {user.Id})</td>
 				</tr>
 			}

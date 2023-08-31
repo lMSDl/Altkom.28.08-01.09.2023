@@ -1,30 +1,18 @@
 ﻿@model User
 
-@inject IStringLocalizer<Program> StringLocalizer
-@inject IHtmlLocalizer<Program> HtmlLocalizer
-@inject IViewLocalizer ViewLocalizer
-
 
 <div>
 	<table class="table">
 		<thead>
 			<tr>
 
-				<th> @Html.DisplayName(StringLocalizer[nameof(Entity.Id)]) </th>
-
-				@* <th> @Html.DisplayNameFor(model => model.UserName) </th> *@ @* Tłumaczenie na podstawie adnotacji *@
-				@* <th> @StringLocalizer["<i>{0}</i>",@Html.DisplayNameFor(model => model.UserName)] </th> *@ @* nie stosuje formatowania *@
-				<th> @HtmlLocalizer["<i>{0}</i>",@Html.DisplayNameFor(model => model.UserName)] </th> @* stosuje formatowanie *@
-
-				@* <th> <label>@nameof(Models.User.Password)</label> </th> *@
-				<th> @Html.Label(@ViewLocalizer[nameof(Models.User.Password)].Value) </th> @* tłumaczenie związane z widokiem *@
+				<partial name="_UserHeader" model="new Models.User()"/>
+				
 			</tr>
 		</thead>
 		<tbody>
 				<tr>
-					<td>@Html.DisplayFor(model => model.Id)</td>
-					<td>@Html.DisplayFor(model => model.UserName)</td>
-					<td>@Model.Password</td>
+					<partial name="_UserBody" model="@Model" />
 				</tr>
 		</tbody>
 	</table>
