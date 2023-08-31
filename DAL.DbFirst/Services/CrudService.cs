@@ -34,6 +34,12 @@ namespace DAL.DbFirst.Services
 
 		public async Task<T> CreateAsync(T entity)
 		{
+			//wywołanie procedury składowej nie zwracającej wyniku
+			//_dbContext.Database.ExecuteSqlInterpolated($"exec myprocedure {}");
+
+			//wywołanie procedury składowej zwracające wynik
+			//_dbContext.Set<T>().FromSqlRaw("exec abc");
+
 			var dbEntity = _mapper.Map<Tdb>(entity);
 			_dbContext.Set<Tdb>().Add(dbEntity);
 			await _dbContext.SaveChangesAsync();
