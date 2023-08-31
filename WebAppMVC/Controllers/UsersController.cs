@@ -59,14 +59,26 @@ namespace WebAppMVC.Controllers
 		//public async Task<IActionResult> EditUser(User editedUser)
 		public async Task<IActionResult> EditUser(int id, [Bind("UserName", "Password")]User editedUser)
 		{
-			var user = await _service.ReadAsync(id);
+			if (id == 0)
+			{
+				await _service.CreateAsync(editedUser);
+			}
+			else
+			{
+				var user = await _service.ReadAsync(id);
 
-			user.UserName = editedUser.UserName;
-			user.Password = editedUser.Password;
+				user.UserName = editedUser.UserName;
+				user.Password = editedUser.Password;
 
-			await _service.UpdateAsync(id, user);
+				await _service.UpdateAsync(id, user);
+			}
 
 			return RedirectToAction(nameof(Index));
+		}
+
+		public IActionResult Add()
+		{
+			return View(nameof(Edit), new User());
 		}
 	}
 }
