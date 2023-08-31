@@ -5,7 +5,10 @@ using ConsoleApp.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using test;
 
+Class1 a = new Class1();
+a.AlaMaKota();
 
 //Microsoft.Extensions.Configuration
 IConfiguration config = new ConfigurationBuilder()
