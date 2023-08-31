@@ -12,6 +12,20 @@
 
 
 <div>
+	@using(Html.BeginForm("search", "users")) {
+		@Html.TextBox("phrase")
+		<input type="submit" class="btn" value="Search" />
+	}
+
+
+	<form asp-action="search" >
+		<input type="text" name="phrase"/>
+		<input type="submit" class="btn" value="Search"/>
+	</form>
+</div>
+
+
+<div>
 	<table class="table">
 		<thead>
 			<tr>
