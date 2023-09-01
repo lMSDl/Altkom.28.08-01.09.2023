@@ -93,6 +93,7 @@ namespace WebAppMVC.Controllers
 			return RedirectToAction(nameof(Index));
 		}
 
+		[Authorize(Policy = "OnlyForPaul")]
 		public IActionResult Add()
 		{
 			return View(nameof(Edit), new User());

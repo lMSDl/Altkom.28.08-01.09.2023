@@ -46,6 +46,10 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         x.AccessDeniedPath = "/";
         x.ExpireTimeSpan = TimeSpan.FromSeconds(600);
     });
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("OnlyForPaul", options => options.RequireUserName("Paul"));
+});
 
 var app = builder.Build();
 
