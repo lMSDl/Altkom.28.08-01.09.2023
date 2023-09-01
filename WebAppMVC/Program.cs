@@ -1,8 +1,11 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.FileProviders;
 using Models;
 using Services.Bogus;
 using Services.Bogus.Fakers;
 using Services.Interfaces;
+using WebAppMVC.FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +20,7 @@ builder.Services.AddSqlServer<DAL.DbFirst.ASPNETContext>(builder.Configuration.G
 
 
 builder.Services.AddControllersWithViews()
+    .AddFluentValidation()
     .AddViewLocalization()
     .AddDataAnnotationsLocalization(x => x.DataAnnotationLocalizerProvider = (type, factory) => factory.Create(typeof(Program)));
 
@@ -27,6 +31,9 @@ builder.Services.Configure<RequestLocalizationOptions>(x =>
     x.AddSupportedCultures("en-us", "pl");
 	x.AddSupportedUICultures("en-us", "pl");
 });
+
+//builder.Services.AddScoped<UserValidator>();
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
 var app = builder.Build();
 

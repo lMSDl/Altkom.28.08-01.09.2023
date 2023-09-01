@@ -6,9 +6,9 @@ namespace Models
     public class User : Entity
     {
 		[DisplayName("Login")]
-        [Required]
+        //[Required]
 		public string UserName { get; set; } = "";
-        [MinLength(8)]
+        //[MinLength(8)]
         //[RegularExpression("")]
 		public string Password { get; set; } = "";
 
