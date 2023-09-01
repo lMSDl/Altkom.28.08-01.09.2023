@@ -7,9 +7,9 @@ namespace WebAppMVC.Controllers
 	[AutoValidateAntiforgeryToken]
 	public class UsersController : Controller
 	{
-		private ICrudService<User> _service;
+		private IUsersService _service;
 
-		public UsersController(ICrudService<User> service)
+		public UsersController(IUsersService service)
 		{
 			_service = service;
 		}
@@ -59,6 +59,17 @@ namespace WebAppMVC.Controllers
 		//public async Task<IActionResult> EditUser(User editedUser)
 		public async Task<IActionResult> EditUser(int id, [Bind("UserName", "Password")]User editedUser)
 		{
+			var duplicate = await _service.GetUserByUserNameAsync(editedUser.UserName);
+			if(duplicate != null && (id == 0 || id != duplicate.Id))
+			{
+				ModelState.AddModelError(nameof(Models.User.UserName), "User name must be unique");
+			}
+
+			if(!ModelState.IsValid)
+			{
+				return View(nameof(Edit));
+			}
+
 			if (id == 0)
 			{
 				await _service.CreateAsync(editedUser);

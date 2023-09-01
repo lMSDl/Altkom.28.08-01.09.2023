@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,10 @@ namespace DAL.DbFirst.Services
 		{
 		}
 
-		public Task<Models.User?> GetUserByUserNameAsync(string userName)
+		public async Task<Models.User?> GetUserByUserNameAsync(string userName)
 		{
-			throw new NotImplementedException();
+			var user = await DbContext.Set<User>().SingleOrDefaultAsync(x => x.UserName == userName);
+			return Mapper.Map<Models.User>(user);
 		}
 	}
 }

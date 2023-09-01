@@ -12,14 +12,14 @@ namespace DAL.DbFirst.Services
 {
 	public class CrudService<T, Tdb> : ICrudService<T> where T : Entity where Tdb : class
 	{
-		private readonly ASPNETContext _dbContext;
-		private readonly IMapper _mapper;
+		protected ASPNETContext DbContext { get; }
+		protected IMapper Mapper { get; }
 
 		public CrudService(ASPNETContext dbContext)
 		{
-			_dbContext = dbContext;
+			DbContext = dbContext;
 
-			_mapper = ConfigureAutoMapper().CreateMapper();
+			Mapper = ConfigureAutoMapper().CreateMapper();
 		}
 
 		protected virtual MapperConfiguration ConfigureAutoMapper()
@@ -40,40 +40,40 @@ namespace DAL.DbFirst.Services
 			//wywołanie procedury składowej zwracające wynik
 			//_dbContext.Set<T>().FromSqlRaw("exec abc");
 
-			var dbEntity = _mapper.Map<Tdb>(entity);
-			_dbContext.Set<Tdb>().Add(dbEntity);
-			await _dbContext.SaveChangesAsync();
-			entity = _mapper.Map<T>(dbEntity);
+			var dbEntity = Mapper.Map<Tdb>(entity);
+			DbContext.Set<Tdb>().Add(dbEntity);
+			await DbContext.SaveChangesAsync();
+			entity = Mapper.Map<T>(dbEntity);
 			return entity; 
 		}
 
 		public async Task DeleteAsync(int id)
 		{
-			var dbEntity = await _dbContext.Set<Tdb>().FindAsync(id);
-			_dbContext.Remove(dbEntity);
-			await _dbContext.SaveChangesAsync();
+			var dbEntity = await DbContext.Set<Tdb>().FindAsync(id);
+			DbContext.Remove(dbEntity);
+			await DbContext.SaveChangesAsync();
 		}
 
 		public async Task<IEnumerable<T>> ReadAsync()
 		{
-			var dbEntities = await _dbContext.Set<Tdb>().ToListAsync();
-			var entities = _mapper.Map<IEnumerable<T>>(dbEntities);
+			var dbEntities = await DbContext.Set<Tdb>().ToListAsync();
+			var entities = Mapper.Map<IEnumerable<T>>(dbEntities);
 			return entities;
 		}
 
 		public async Task<T?> ReadAsync(int id)
 		{
-			var dbEntity = await _dbContext.Set<Tdb>().FindAsync(id);
-			var entity = _mapper.Map<T>(dbEntity);
+			var dbEntity = await DbContext.Set<Tdb>().FindAsync(id);
+			var entity = Mapper.Map<T>(dbEntity);
 			return entity;
 		}
 
 		public async Task UpdateAsync(int id, T entity)
 		{
 			entity.Id = id;
-			var dbEntity = _mapper.Map<Tdb>(entity);
-			_dbContext.Set<Tdb>().Update(dbEntity);
-			await _dbContext.SaveChangesAsync();
+			var dbEntity = Mapper.Map<Tdb>(entity);
+			DbContext.Set<Tdb>().Update(dbEntity);
+			await DbContext.SaveChangesAsync();
 		}
 	}
 }

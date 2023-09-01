@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using WebAppMVC.Models;
+using WebAppMVC.Model;
 
 namespace WebAppMVC.Controllers
 {
