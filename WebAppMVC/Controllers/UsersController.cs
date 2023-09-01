@@ -64,11 +64,11 @@ namespace WebAppMVC.Controllers
 			{
 				ModelState.AddModelError(nameof(Models.User.UserName), "User name must be unique");
 			}
-
+			*/
 			if(!ModelState.IsValid)
 			{
 				return View(nameof(Edit));
-			}*/
+			}
 
 			if (id == 0)
 			{
