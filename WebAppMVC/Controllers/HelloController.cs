@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Web;
 
 namespace WebAppMVC.Controllers
 {
+    [Authorize]
     public class HelloController : Controller
     {
         public IActionResult Index()

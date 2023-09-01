@@ -1,5 +1,6 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.FileProviders;
 using Models;
 using Services.Bogus;
@@ -20,7 +21,6 @@ builder.Services.AddSqlServer<DAL.DbFirst.ASPNETContext>(builder.Configuration.G
 
 
 builder.Services.AddControllersWithViews()
-    .AddFluentValidation()
     .AddViewLocalization()
     .AddDataAnnotationsLocalization(x => x.DataAnnotationLocalizerProvider = (type, factory) => factory.Create(typeof(Program)));
 
@@ -32,8 +32,20 @@ builder.Services.Configure<RequestLocalizationOptions>(x =>
 	x.AddSupportedUICultures("en-us", "pl");
 });
 
+
+builder.Services.AddFluentValidationAutoValidation();
 //builder.Services.AddScoped<UserValidator>();
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(x =>
+    {
+        x.LoginPath = "/Login";
+        //x.LogoutPath = ...
+        x.AccessDeniedPath = "/";
+        x.ExpireTimeSpan = TimeSpan.FromSeconds(600);
+    });
 
 var app = builder.Build();
 
@@ -67,6 +79,7 @@ app.UseFileServer(new FileServerOptions
 app.UseRequestLocalization();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

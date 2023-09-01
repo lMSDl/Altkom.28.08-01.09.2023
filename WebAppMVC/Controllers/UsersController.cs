@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services.Interfaces;
 
 namespace WebAppMVC.Controllers
 {
 	[AutoValidateAntiforgeryToken]
+	[Authorize]
 	public class UsersController : Controller
 	{
 		private IUsersService _service;
@@ -14,6 +16,7 @@ namespace WebAppMVC.Controllers
 			_service = service;
 		}
 
+		[AllowAnonymous]
 		public async Task<IActionResult> Index()
 		{
 			return View((await _service.ReadAsync()).OrderBy(x => x.Id));
@@ -42,6 +45,7 @@ namespace WebAppMVC.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = nameof(Models.Roles.Delete))]
 		public async Task<IActionResult> DeleteUser(int id)
 		{
 			await _service.DeleteAsync(id);
@@ -69,6 +73,8 @@ namespace WebAppMVC.Controllers
 			{
 				return View(nameof(Edit));
 			}
+
+			editedUser.Password = BCrypt.Net.BCrypt.HashPassword(editedUser.Password);
 
 			if (id == 0)
 			{
