@@ -1,0 +1,33 @@
+﻿@page
+@model WebAppRazor.Pages.Users.DeleteModel
+@{
+}
+
+<div>
+	<table class="table">
+		<thead>
+			<tr>
+
+				<partial name="_UserHeader" model="new Models.User()" />
+
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<partial name="_UserBody" model="@Model.SelectedUser" />
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div>
+	<p>Czy chcesz usunąć wskazanego użytkownika?</p>
+
+	@using (Html.BeginForm(FormMethod.Post))
+	{
+		@Html.HiddenFor(x => x.SelectedUser.Id)
+
+		<input type="submit" value="Tak" class="btn" />
+		<a asp-page="./Index" class="btn">Nie</a>
+	}
+</div>

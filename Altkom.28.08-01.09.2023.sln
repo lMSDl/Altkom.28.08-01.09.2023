@@ -25,6 +25,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "test", "test\test.vbproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL.DbFirst", "DAL.DbFirst\DAL.DbFirst.csproj", "{DFC6ABA3-AA05-4A6F-A6C0-A420A3B3E2EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppRazor", "WebAppRazor\WebAppRazor.csproj", "{1EA3F0C4-4402-4AC9-880B-2E044A2AF394}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{DFC6ABA3-AA05-4A6F-A6C0-A420A3B3E2EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFC6ABA3-AA05-4A6F-A6C0-A420A3B3E2EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFC6ABA3-AA05-4A6F-A6C0-A420A3B3E2EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EA3F0C4-4402-4AC9-880B-2E044A2AF394}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EA3F0C4-4402-4AC9-880B-2E044A2AF394}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EA3F0C4-4402-4AC9-880B-2E044A2AF394}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EA3F0C4-4402-4AC9-880B-2E044A2AF394}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

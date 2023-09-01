@@ -1,0 +1,32 @@
+﻿@page
+@model WebAppRazor.Pages.Users.IndexModel
+@{
+}
+
+
+
+
+<div>
+	<a asp-page="./AddEdit/Add">Add</a>
+</div>
+
+<div>
+	<table class="table">
+		<thead>
+			<tr>
+
+				@await Html.PartialAsync("_UserHeader", new User())
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var user in await Model.Service.ReadAsync())
+			{
+				<tr>
+					@await Html.PartialAsync("_UserBody", user)
+					<td><a asp-page="./AddEdit/Edit" asp-route-id="@user.Id">Edit</a></td>
+					<td><a asp-page="./Delete" asp-route-id="@user.Id" >Delete</a></td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
